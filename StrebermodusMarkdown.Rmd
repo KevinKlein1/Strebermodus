@@ -1,0 +1,38 @@
+---
+title: "StrebermodusMarkdown"
+author: Linda Sinani B.A. and Kevin Klein B.A.
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(psych)
+library(ggplot2)
+library(dataforsocialscience)
+
+df <- dataforsocialscience::robo_care
+
+```
+### deskriptive Statistik
+
+```{r deskriptive Statistik}
+
+df %>% names()
+
+summary(df$gender)
+
+df %>% select(age, gender, robo_food) %>% psych::describe()
+
+
+
+
+```
+
+
+
+
+
+
+
