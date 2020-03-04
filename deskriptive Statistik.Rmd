@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
 library(dataforsocialscience)
+library(plotrix)
+rwthfarben <- hcictools::rwth.colorpalette()
 
 df <- dataforsocialscience::robo_care
 
@@ -18,6 +20,8 @@ df <- dataforsocialscience::robo_care
 
 * Rohdaten sind sehr unübersichtlich
 * man muss sich überlegen, welche Daten man eigentlich beschreiben möchte
+* mit ggplot2 Builder plot code erstellen können. Titel usw. labs(x, y, title, subtitle, caption)
+
 
 <br>
 
@@ -30,13 +34,48 @@ df <- dataforsocialscience::robo_care
 
 ```{r Befehle für deskriptive Statistik}
 
-df %>% names()
+# df %>% names()
 
-df %>% select(human_med, age, job_type) %>% psych::describe()
+# df %>% select(human_med, age, job_type) %>% psych::describe()
 
-df %>% select(human_med) %>% ggplot() + aes(x=human_med) + geom_histogram(fill="lightgreen")
+ # df %>% select(human_med) %>% ggplot() + aes(x=human_med) + geom_histogram(fill = rwthfarben$magenta)
 
-df %>% select(age) %>% ggplot() + aes(x=age) + geom_histogram()
+# df %>% select(age) %>% ggplot() + aes(x=age) + geom_histogram()
+
+```
+
+### Boxplot und Barplot
+
+```{r boxplot}
+
+df %>% filter(gender != "rather not say") %>% 
+  ggplot() + aes(x=gender, y=human_med) + 
+  geom_boxplot(fill=rwthfarben$magenta) + 
+  cowplot::theme_minimal_grid() + 
+  #coord_flip() +
+  scale_y_continuous(breaks = c(1:6), limits = c(1,6)) +
+  labs(x="Alter", 
+       y="Human Med",
+       title="Linda und Kevin sind auf jeden Fall die Krassesten") +
+NULL
+```
+
+```{r barplot}
+
+df %>% filter(gender != "rather not say") %>% 
+  ggplot() + aes(x=gender, weight=human_med) + 
+  geom_bar(fill=rwthfarben$magenta) + 
+  cowplot::theme_minimal_grid() + 
+  #coord_flip() +
+  #scale_y_continuous(breaks = c(1:6), limits = c(1,6)) +
+  labs(x="Alter", 
+       y="Human Med",
+       title="Linda und Kevin sind auf jeden Fall die Krassesten") +
+NULL
 
 
 ```
+
+
+
+
