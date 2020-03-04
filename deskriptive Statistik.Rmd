@@ -1,0 +1,42 @@
+---
+title: "deskriptive Statistik"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(tidyverse)
+library(ggplot2)
+library(dataforsocialscience)
+
+df <- dataforsocialscience::robo_care
+
+
+```
+
+* Rohdaten sind sehr unübersichtlich
+* man muss sich überlegen, welche Daten man eigentlich beschreiben möchte
+
+<br>
+
+* df %>% names() zeigt an, welche Variablen im Datensatz vorhanden sind
+* df %>% select(age, gender, kut) %>% psych::describe zeigt die Werte für ausgewählte Variablen an (liefert einfache Übersicht über die Parameter)
+* df %>% select(human_med) %>% ggplot() + aes(x=human_med) + geom_histogram(): mit ggplot ein Histogram erstellen können
+
+<br>
+
+
+```{r Befehle für deskriptive Statistik}
+
+df %>% names()
+
+df %>% select(human_med, age, job_type) %>% psych::describe()
+
+df %>% select(human_med) %>% ggplot() + aes(x=human_med) + geom_histogram()
+
+df %>% select(age) %>% ggplot() + aes(x=age) + geom_histogram()
+
+
+```
