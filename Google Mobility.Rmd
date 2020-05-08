@@ -24,16 +24,21 @@ raw <- read_csv("Global_Mobility_Report.csv", guess_max = 90000)
 
 raw %>%
   filter(country_region == "Germany") %>%
-  filter(!is.na(sub_region_1)) %>% 
+  filter(!is.na(sub_region_1)) %>%
   ggplot() +
   aes(x = date) +
   aes(y = grocery_and_pharmacy_percent_change_from_baseline) +
   aes(color = sub_region_1) +
   geom_line() +
   facet_wrap(~sub_region_1) +
+  labs(title = "Supermarkt- und Apothekenbesuche im Zeitraum 15.02. - 26.04.",
+       subtitle = "Sortiert nach Bundesländern",
+       x = "Datum",
+       y = "Supermarkt und Apothekenbesuche") +
+  scale_color_discrete(name = "Bundesländer") +
+                       #breaks=c("Baden-Württemberg", "Bavaria"),
+                       #labels=c("Baden-Württemberg", "Bayern")) +
   NULL
-
-
 
 ```
 
