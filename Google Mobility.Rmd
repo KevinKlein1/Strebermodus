@@ -1,0 +1,39 @@
+---
+title: "Google Mobility"
+author: Linda Sinani, Kevin Klein
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(tidyverse)
+library(ggplot2)
+
+raw <- read_csv("Global_Mobility_Report.csv", guess_max = 90000)
+
+
+
+```
+
+#Analyse
+
+
+```{r}
+
+raw %>%
+  filter(country_region == "Germany") %>%
+  filter(!is.na(sub_region_1)) %>% 
+  ggplot() +
+  aes(x = date) +
+  aes(y = grocery_and_pharmacy_percent_change_from_baseline) +
+  aes(color = sub_region_1) +
+  geom_line() +
+  facet_wrap(~sub_region_1) +
+  NULL
+
+
+
+```
+
